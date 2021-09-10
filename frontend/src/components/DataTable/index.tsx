@@ -1,4 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { SalePage } from "types/Sale";
+import { formatLocalDate } from "utils/format";
+import { BASE_URL } from "utils/requests";
+
 const DataTable = () => {
+    const [page, setPage] = useState<SalePage>({
+        content: [],
+        last: true,
+        totalPages: 0,
+        totalElements: 0,
+        numberOfElements: 0,
+        first: true,
+        size: 0,
+        number: 0,
+        empty: true
+    });
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/sales?page=1&size=20&sort=date,desc`)
+            .then(response => {
+                setPage(response.data);
+                console.log(response.data);
+            }).catch(error => {
+
+            });
+    }, []);
+
     return (<div className="table-responsive">
         <table className="table table-striped table-sm">
             <thead>
@@ -11,76 +39,16 @@ const DataTable = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
-                <tr>
-                    <td>22/04/2021</td>
-                    <td>Barry Allen</td>
-                    <td>34</td>
-                    <td>25</td>
-                    <td>15017.00</td>
-                </tr>
+                {
+                    page.content?.map(item => (
+                        <tr key={item.id}>
+                            <td>{formatLocalDate(item.date, 'dd/MM/yyyy')}</td>
+                            <td>{item.seller.name}</td>
+                            <td>{item.visited}</td>
+                            <td>{item.deals}</td>
+                            <td>{item.amount.toFixed(2)}</td>
+                        </tr>
+                    ))}
             </tbody>
         </table>
     </div>
@@ -88,3 +56,7 @@ const DataTable = () => {
 }
 
 export default DataTable;
+
+function setState<T>(arg0: { content: never[]; last: boolean; totalPages: number; totalElements: number; numberOfElements: number; first: boolean; size: number; number: number; empty: boolean; }): [any, any] {
+    throw new Error("Function not implemented.");
+}
