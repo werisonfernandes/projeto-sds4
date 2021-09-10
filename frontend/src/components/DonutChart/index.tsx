@@ -51,7 +51,7 @@ const DonutChart = () => {
             }).catch(error => {
 
             });
-    }, []);
+    }, [chartData]);
 
     return (
         <Chart options={{ ...options, labels: chartData.labels }}

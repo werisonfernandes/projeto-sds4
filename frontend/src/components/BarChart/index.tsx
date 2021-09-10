@@ -48,7 +48,7 @@ const BarChart = () => {
             }).catch(error => {
 
             });
-    }, []);
+    }, [chartData]);
 
     /*const mockData = {
         labels: {
