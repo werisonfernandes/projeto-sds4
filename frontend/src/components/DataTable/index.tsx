@@ -66,7 +66,3 @@ const DataTable = () => {
 }
 
 export default DataTable;
-
-function setState<T>(arg0: { content: never[]; last: boolean; totalPages: number; totalElements: number; numberOfElements: number; first: boolean; size: number; number: number; empty: boolean; }): [any, any] {
-    throw new Error("Function not implemented.");
-}
