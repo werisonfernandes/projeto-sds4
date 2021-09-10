@@ -42,6 +42,14 @@ public class SaleSuccessDTO implements Serializable {
 		this.visited = visited;
 	}
 
+	public long getDeals() {
+		return deals;
+	}
+
+	public void setDeals(long deals) {
+		this.deals = deals;
+	}
+
 	@Override
 	public String toString() {
 		return "SaleSuccessDTO [sellerName=" + sellerName + ", visited=" + visited + ", deals=" + deals
